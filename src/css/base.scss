@@ -4,3 +4,37 @@ $primary-background: pink;
 body {
   background-color: $primary-background;
 }
+
+div {
+  position: relative;
+}
+
+input {
+  display: block;
+  font-family: 'open sans';
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 150%;
+  padding: 10px;
+  padding-left: 50px;
+}
+
+#sub-button {
+  background-color: red;
+  color: white;
+  text-align: center;
+  padding-left: 0px;
+  width: 15em;
+}
+
+#letter {
+  position: absolute;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+#lock {
+  position: absolute;
+  padding-left: 15px;
+  padding-top: 10px;
+}
