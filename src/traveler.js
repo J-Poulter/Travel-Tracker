@@ -7,10 +7,6 @@ class Traveler extends User {
 
   }
 
-  calculateEstimatedCost() {
-
-  }
-
   calculateTotalSpent() {
 
   }

@@ -6,7 +6,7 @@ class User {
   }
 
   logIn(userName, password) {
-    if (userName ===  traveler && password = 'travel2020') {
+    if (userName ===  traveler/*find function to have nums 1-50*/ && password = 'travel2020') {
       domUpdates.populateTravelerPage()
     } else if (userName === 'agency' && password === 'travel2020') {
       domUpdates.populateAgentPage()
