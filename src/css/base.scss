@@ -1,8 +1,20 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: pink;
+// $primary-background: ;
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
 
 body {
-  background-color: $primary-background;
+  background-image: url(https://wallpaperplay.com/walls/full/4/3/d/193173.jpg);
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: white;
 }
 
 div {
