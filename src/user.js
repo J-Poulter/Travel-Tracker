@@ -5,15 +5,15 @@ class User {
     this.travelerType = user.travelerType;
   }
 
-  logIn(userName, password) {
-    if (userName ===  traveler/*find function to have nums 1-50*/ && password = 'travel2020') {
-      domUpdates.populateTravelerPage()
-    } else if (userName === 'agency' && password === 'travel2020') {
-      domUpdates.populateAgentPage()
-    } else {
-      domUpdates.loginErrorDisplay()
-    }
-  }
+  // logIn(userName, password) {
+  // //   // if (userName ===  traveler/*find function to have nums 1-50*/ && password = 'travel2020') {
+  // //   //   domUpdates.populateTravelerPage()
+  // //   // } else if (userName === 'agency' && password === 'travel2020') {
+  // //   //   domUpdates.populateAgentPage()
+  // //   // } else {
+  // //   //   domUpdates.loginErrorDisplay()
+  // //   // }
+  // }
 
   displayTrips() {
 

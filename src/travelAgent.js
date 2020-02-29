@@ -1,6 +1,9 @@
+import User from './user';
+
+
 class TravelAgent extends User {
-  constructor(travelAgent) {
-    super(travelAgent)
+  constructor(user) {
+    super(user)
   }
 
   searchUserDetails() {
@@ -20,7 +23,7 @@ class TravelAgent extends User {
   }
 
   deleteUpcomingTrip() {
-    
+
   }
 }
 
