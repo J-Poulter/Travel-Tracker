@@ -6,12 +6,24 @@ body {
   width: 100%;
 }
 
-body {
+.loginBody {
   background-image: url('../images/LoginBackground.jpg');
     //Other background url('./images/TravelBackground.jpg')
   background-position: center;
   background-size: 100%;
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
+}
+
+.travelerBody {
+  background-image: url('../images/Traveler.jpg');
+  background-position: center;
+  background-size: 100%;
+}
+
+.agencyBody {
+  background-image: url('../images/TravelBackground.jpg');
+  background-position: center;
+  background-size: 100%;
 }
 
 h1 {
