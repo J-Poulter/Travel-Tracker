@@ -1,3 +1,5 @@
+import domUpdates from './domUpdates';
+
 class User {
   constructor(user) {
     this.id = user.id;
@@ -5,12 +7,15 @@ class User {
     this.travelerType = user.travelerType;
   }
 
-  logIn(userName, password) {
-    if (userName ===  traveler/*find function to have nums 1-50*/ && password = 'travel2020') {
-      domUpdates.populateTravelerPage()
-    } else if (userName === 'agency' && password === 'travel2020') {
-      domUpdates.populateAgentPage()
-    } else {
+  logIn(username, password, loginData) {
+    if (loginData.includes(username) && password === 'traveler2020') {
+      let usersId = Number(username.slice(8));
+      domUpdates.populateTravelerPage(usersId)
+    }
+    else if (username === 'agency' && password === 'traveler2020') {
+      domUpdates.populateAgentPage();
+    }
+    else {
       domUpdates.loginErrorDisplay()
     }
   }

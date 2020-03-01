@@ -1,14 +1,20 @@
+import User from './user';
+
 class TravelAgent extends User {
-  constructor(travelAgent) {
-    super(travelAgent)
+  constructor(user) {
+    super(user)
   }
 
   searchUserDetails() {
 
   }
 
-  determineRequestStatus() {
+  approveTripRequest() {
 
+  }
+
+  denyTripRequest() {
+    
   }
 
   calculateYearsIncome() {
@@ -20,7 +26,7 @@ class TravelAgent extends User {
   }
 
   deleteUpcomingTrip() {
-    
+
   }
 }
 

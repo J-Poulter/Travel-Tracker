@@ -6,11 +6,24 @@ body {
   width: 100%;
 }
 
-body {
-  background-image: url(https://wallpaperplay.com/walls/full/4/3/d/193173.jpg);
+.loginBody {
+  background-image: url('../images/LoginBackground.jpg');
+    //Other background url('./images/TravelBackground.jpg')
   background-position: center;
   background-size: 100%;
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
+}
+
+.travelerBody {
+  background-image: url('../images/Traveler.jpg');
+  background-position: center;
+  background-size: 100%;
+}
+
+.agencyBody {
+  background-image: url('../images/TravelBackground.jpg');
+  background-position: center;
+  background-size: 100%;
 }
 
 h1 {
