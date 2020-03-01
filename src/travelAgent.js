@@ -1,6 +1,5 @@
 import User from './user';
 
-
 class TravelAgent extends User {
   constructor(user) {
     super(user)
@@ -10,8 +9,12 @@ class TravelAgent extends User {
 
   }
 
-  determineRequestStatus() {
+  approveTripRequest() {
 
+  }
+
+  denyTripRequest() {
+    
   }
 
   calculateYearsIncome() {
