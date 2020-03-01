@@ -1,4 +1,3 @@
-import loginData from './loginData';
 import domUpdates from './domUpdates';
 
 class User {
