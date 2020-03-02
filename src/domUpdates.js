@@ -34,7 +34,7 @@ let domUpdates = {
     console.log(pending)
 
     this.createTravelerNavBar()
-    // currentUser = new User()
+
   },
 
   populateAgentPage() {
@@ -47,7 +47,8 @@ let domUpdates = {
     console.log(income)
     let requests = currentUser.displayRequests();
     console.log(requests)
-
+    this.createAgentNavBar()
+    this.createAgentRequestsPage()
   },
 
   loginErrorDisplay() {
@@ -59,12 +60,24 @@ let domUpdates = {
     $('body').prepend(`
       <nav class='traveler-nav'>Welcome ${currentUser.name}!
       <div class='traveler-button-container'>
-      <button class='traveler-button traveler-button2'>All Destinations</button>
-      <button class='traveler-button traveler-button1'>My Trips Information</button>
+      <button class='traveler-button traveler-button1'>All Destinations</button>
+      <button class='traveler-button traveler-button2'>My Trips Information</button>
       </div></nav>
     `)
-    $('.traveler-button1').click(() => this.createTravelerTrips())
-    $('.traveler-button2').click(() => this.createDestinationCards())
+    $('.traveler-button1').click(() => this.createDestinationCards())
+    $('.traveler-button2').click(() => this.createTravelerTrips())
+  },
+
+  createAgentNavBar() {
+    $('body').prepend(`
+      <nav class='traveler-nav'>Welcome ${currentUser.name}!
+      <div class='traveler-button-container'>
+      <button class='traveler-button agent-button agent-button1'>Pending Requests</button>
+      <button class='traveler-button agent-button agent-button2'>Search Users</button>
+      </div></nav>
+    `)
+    $('.agent-button1').click(() => this.createAgentRequestsPage())
+    $('.agent-button2').click(() => this.createAgentSearchPage())
   },
 
   createDestinationCards() {
@@ -109,10 +122,48 @@ let domUpdates = {
       <button class='filter-buttons'>Current</button>
       <button class='filter-buttons'>Upcoming</button>
       </div>`)
+  },
 
+  createAgentRequestsPage() {
+    let allReqs = currentUser.displayRequests()
+    $('main').html('').prepend(`<div class='pending-trips-container'>
+    <table class='request-table'>
+    <th class='request-row-heading'>Id</th>
+    <th class='request-row-heading'>Date</th>
+    <th class='request-row-heading'>Duration</th>
+    <th class='request-row-heading'>Approve</th>
+    <th class='request-row-heading'>Deny</th>
+    </table>
+    </div>`)
+    allReqs.forEach(request => {
+      $('.request-table').append(
+        `<tr class='request-row request${request.id}'>
+          <td>${request.id}</td>
+          <td>${request.date}</td>
+          <td>${request.duration}</td>
+          <td><button data-id='${request.id}' class='approve-button'>Approve Request</button></td>
+          <td><button data-id='${request.id}' class='deny-button'>Deny Request</button></td>
+        `)
+    })
+    $('.approve-button').click(() => {
+      currentUser.approveTripRequest(Number(event.target.dataset.id))
+      $(event.target).closest('.request-row').html('<p class="approved-message">This Trip has been approved!</p>')
+    })
+    $('.deny-button').click(() => {
+      currentUser.deleteUpcomingTrip(Number(event.target.dataset.id))
+      $(event.target).closest('.request-row').html('<p class="denied-message">This Trip has been denied!</p>')
+    })
+  },
+
+  createAgentSearchPage() {
+    $('main').html('')
+  },
+
+  async updateTripsData() {
+    await fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
+      let tripRes = await res2.json();
+      tripsData = await tripRes.trips;
   }
-
-
 }
 
 
