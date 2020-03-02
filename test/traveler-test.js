@@ -1,9 +1,11 @@
 import chai from 'chai';
 const expect = chai.expect;
+const spies = require('chai-spies');
 import Traveler from '../src/traveler';
 import User from '../src/user';
+chai.use(spies);
 
-let trip1, trip2, trip3, trip4, trip5, trip6, tripsData, destination1, destination2, destinationsData, traveler;
+let trip1, trip2, trip3, trip4, trip5, trip6, trip7, tripsData, destination1, destination2, destinationsData, traveler;
 
 describe('Traveler', () => {
 
@@ -14,6 +16,7 @@ describe('Traveler', () => {
     trip4 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2020/08/08","duration":14,"status":"approved","suggestedActivities":[]}
     trip5 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2019/08/08","duration":14,"status":"approved","suggestedActivities":[]}
     trip6 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2020/02/28","duration":14,"status":"approved","suggestedActivities":[]}
+    trip7 = {"id":45,"userID":12,"destinationID":37,"travelers":1,"date":"2020/02/28","duration":14,"status":"pending","suggestedActivities":[]}
     tripsData = [trip1, trip2, trip3, trip4, trip5, trip6];
     destination1 = {"id":32,"destination":"Kathmandu, Nepal","estimatedLodgingCostPerDay":45,"estimatedFlightCostPerPerson":1200,"image":"https://images.unsplash.com/photo-1558799401-1dcba79834c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80","alt":"temple with buntings during daytime"},
     destination2 = {"id":33,"destination":"Brussels, Belgium","estimatedLodgingCostPerDay":1000,"estimatedFlightCostPerPerson":110,"image":"https://images.unsplash.com/photo-1559113202-c916b8e44373?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80","alt":"brown concrete gate"}
@@ -33,8 +36,18 @@ describe('Traveler', () => {
     expect(traveler.usersTrips).to.deep.equal([trip1, trip4, trip5, trip6])
   });
 
-  it.skip('should be able to make a trip request', () => {
-    expect(traveler.makeTripRequest()).to.deep.equal()
+  it('should be able to make a trip request', () => {
+    global.window = {};
+    chai.spy.on(window, 'fetch', () => new Promise((resolve, reject) => {}));
+    traveler.makeTripRequest(trip7)
+    expect(window.fetch).to.be.called(1);
+    expect(window.fetch).to.be.called.with("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(trip7)
+    })
   });
 
   it('should be able to calculate the total amount they spent so far', () => {
