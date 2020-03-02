@@ -1,6 +1,3 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
 import domUpdates from './domUpdates';
 import User from './user';
@@ -8,20 +5,16 @@ import TravelAgent from './travelAgent';
 import Traveler from './traveler';
 import Trip from './trip';
 import loginData from './loginData'
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png';
 import './images/LoginBackground.jpg';
 import './images/TravelBackground.jpg';
-import './images/Traveler.jpg'
+import './images/Traveler3.jpg'
 
 let logInButton = document.querySelector('#sub-button');
 let usernameInput = document.querySelector('#usernameInput');
 let passwordInput = document.querySelector('#passwordInput');
-
 let destinationsData, tripsData, travelersData;
-let user = new User(0, 'blank', 'none');
 
 logInButton.addEventListener('click', loginHelper)
 
@@ -42,7 +35,21 @@ async function obtainData() {
 function loginHelper() {
   let usernameInfo = usernameInput.value
   let passwordInfo = passwordInput.value
-  domUpdates.transferData(destinationsData, tripsData, travelersData)
-  user.logIn(usernameInfo, passwordInfo, loginData)
+  logIn(usernameInfo, passwordInfo, loginData)
 }
+
+function logIn(username, password) {
+    if (loginData.includes(username) && password === 'travel2020') {
+      domUpdates.transferData(destinationsData, tripsData, travelersData)
+      let usersId = Number(username.slice(8));
+      domUpdates.populateTravelerPage(usersId)
+    }
+    else if (username === 'agency' && password === 'travel2020') {
+      domUpdates.transferData(destinationsData, tripsData, travelersData)
+      domUpdates.populateAgentPage();
+    }
+    else {
+      domUpdates.loginErrorDisplay()
+    }
+  }
 // console.log('This is the JavaScript entry file - your code begins here.');

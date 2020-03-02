@@ -1,5 +1,5 @@
 class Trip {
-  constructor(trip) {
+  constructor(trip, destinationsData) {
     this.id = trip.id;
     this.userID = trip.userID;
     this.destinationID = trip.destinationID;
@@ -8,16 +8,19 @@ class Trip {
     this.duration = trip.duration;
     this.status = trip.status;
     this.suggestedActivities = trip.suggestedActivities;
+    this.destinationsData = destinationsData;
   }
 
-    calculateEstimatedCost(destinationsData) {
-      let thisDestination = destinationsData.find(location => location.id === this.destinationID);
+    calculateEstimatedCost() {
+      let thisDestination = this.destinationsData.find(location => location.id === this.destinationID);
       let flightCost = thisDestination.estimatedFlightCostPerPerson * this.travelers;
       let lodgingCost = thisDestination.estimatedLodgingCostPerDay * this.duration;
-      let combinedCost = flightCost + lodgingCost;
-      let agentFee = combinedCost * 0.1;
-      let totalCost = agentFee + combinedCost
-      return `$${totalCost} (includes $${agentFee} agent fee)`
+      let totalCost = Math.floor((flightCost + lodgingCost) * 1.1)
+      return  totalCost
+    }
+
+    returnDestinationDetails() {
+      return this.destinationsData.find(destination => destination.id === this.destinationID)
     }
 }
 

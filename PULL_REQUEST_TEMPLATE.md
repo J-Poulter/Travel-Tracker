@@ -20,7 +20,6 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 ## Files changed:
 
-- [ ] destination.js
 - [ ] domUpdates.js
 - [ ] index.html
 - [ ] index.js
@@ -29,7 +28,6 @@ Please include a summary of the change and which issue is fixed. Please also inc
 - [ ] trip.js
 - [ ] user.js
 - [ ] base.scss
-- [ ] destination-test.js
 - [ ] sample-test.js
 - [ ] travelAgent-test.js
 - [ ] trip-test.js

@@ -1,40 +1,59 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
+// @import 'variables';
+// @import 'mixins';
+// @import 'traveler-page';
+// @import 'agent-page';
+// ??@import 'login-page'??;
 // $primary-background: ;
 html,
 body {
   height: 100%;
   width: 100%;
+  font-family: 'Bree Serif', sans-serif;
 }
+
+.hidden {
+  display: none;
+}
+//==========================Different Backgrounds==================
 
 .loginBody {
   background-image: url('../images/LoginBackground.jpg');
-    //Other background url('./images/TravelBackground.jpg')
   background-position: center;
   background-size: 100%;
-  // background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .travelerBody {
-  background-image: url('../images/Traveler.jpg');
+  background-image: url('../images/Traveler3.jpg');
   background-position: center;
   background-size: 100%;
+  background-attachment: fixed;
 }
 
 .agencyBody {
   background-image: url('../images/TravelBackground.jpg');
   background-position: center;
   background-size: 100%;
+  background-attachment: fixed;
 }
 
-h1 {
-  color: white;
+//=====================Login Box Items========================
+
+.login-heading {
+  color: black;
+  font-size: 3em;
+  padding-left: 1em;
 }
 
-div {
+.login-container {
   position: relative;
+  background: white;
+  width: 28em;
+  padding-bottom: 2em;
+  border-radius: 5px;
 }
 
-input {
+.login-inputs {
   display: block;
   font-family: 'open sans';
   border-radius: 5px;
@@ -45,11 +64,11 @@ input {
 }
 
 #sub-button {
-  background-color: red;
+  background-color: green;
   color: white;
   text-align: center;
   padding-left: 0px;
-  width: 15em;
+  width: 18em;
 }
 
 #letter {
@@ -63,3 +82,176 @@ input {
   padding-left: 15px;
   padding-top: 10px;
 }
+
+.warning-text {
+  color: red;
+  font-size: 1.25em;
+  font-weight: bold;
+  padding-left: 15px;
+}
+
+//==================Traveler Nav========================
+
+.traveler-nav {
+  width: 100%;
+  height: 2em;
+  background-color: #EDE7B1;
+  font-size: 3em;
+  display: flex;
+  text-align: center;
+  border: solid 1px black;
+  flex-direction: column;
+  padding-top: 10px;
+  position: relative;
+}
+
+.traveler-button-container {
+  position: absolute;
+  top: 2;
+  right: 10px;
+
+}
+
+.traveler-button {
+  border-radius: 15px;
+  font-size: 0.3em;
+  background-color: #8BB6CC;
+  color: white;
+  padding: 5px 15px 5px 15px;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer;}
+}
+//==================Destination Cards====================
+
+.destinations-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card {
+  background-color: #D7F2FE;
+  border: 2px solid #000000;
+  height: 350px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  margin-left: 18px;
+  border-radius: 4px;
+}
+
+.destination-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.card-picture {
+  border: 2px solid #000000;
+  height: 200px;
+  margin: 10px 2% 10px 2%;
+  width: 95%;
+}
+
+.book-destination {
+  &:hover {opacity: 0.8; cursor: pointer;}
+
+}
+
+.card-cost-info {
+  font-size: 1.2em;
+  margin: 5px;
+  font-style: italic;
+}
+
+//============Travelers Current Trips============
+
+.traveler-trips-info {
+  padding-top: 2px;
+  margin: 0px;
+  font-size: 0.8em;
+}
+
+.traveler-trips-span {
+  text-decoration: underline;
+  color: #678464;
+}
+
+.travelers-trips {
+  background-color: #85C7DE;
+  border-radius: 15px;
+}
+
+.total-spent {
+  padding: 15px;
+  color: red;
+  font-size: 1.1em;
+  background-color: #678464;
+  width: 60%;
+  height: 40%;
+  border-radius: 15px;
+  border: solid 1px black;
+  margin-top: 10px;
+}
+
+//===================Agent Nav Bar==============================
+.agent-button {
+  background-color: green;
+}
+
+//===================Agent RequestsPage==============================
+
+.request-table {
+  border: solid 1px black;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-left: 30px;
+  background-color: white;
+  border-color: black;
+  padding: 5px;
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 1px solid #cccccc;
+
+}
+
+td {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+tr {
+  padding: 10px 5px;
+  border: 1px solid #cccccc;
+  margin: 5px;
+}
+
+
+
+.approve-button {
+  border: solid 1px black;
+  border-radius: 15px;
+  color: white;
+  background-color: green;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer}
+}
+
+.deny-button {
+  border: solid 1px black;
+  color: white;
+  border-radius: 15px;
+  background-color: red;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer}
+}
+.approved-message {
+  color: green;
+  font-style: italic;
+}
+
+.denied-message {
+  color: red;
+  font-style: italic;
+}
+
+//===================Agent Search Page==============================

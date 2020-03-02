@@ -1,31 +1,35 @@
-import domUpdates from './domUpdates';
+var moment = require('moment');
 
 class User {
-  constructor(user) {
+  constructor(user, tripsData, destinationsData) {
     this.id = user.id;
     this.name = user.name;
     this.travelerType = user.travelerType;
-  }
-
-  logIn(username, password, loginData) {
-    if (loginData.includes(username) && password === 'traveler2020') {
-      let usersId = Number(username.slice(8));
-      domUpdates.populateTravelerPage(usersId)
-    }
-    else if (username === 'agency' && password === 'traveler2020') {
-      domUpdates.populateAgentPage();
-    }
-    else {
-      domUpdates.loginErrorDisplay()
-    }
+    this.tripsData = tripsData;
+    this.destinationsData = destinationsData;
   }
 
   displayTrips() {
-
+    if (this.id === 0) {
+      return this.tripsData.filter(trip => trip.status === 'approved')
+    } else {
+      return this.tripsData.filter(trip => trip.userID === this.id)
+    }
   }
 
   displayRequests() {
+    if (this.id === 0) {
+      return this.tripsData.filter(trip => trip.status === 'pending')
+    } else {
+      return this.tripsData.filter(trip => trip.status === 'pending' && trip.userID === this.id)
+    }
+  }
 
+  getDateInformation(thisTrip) {
+    let todaysDate = moment();
+    let tripStartDate = moment(thisTrip.date, 'YYYY/MM/DD');
+    let tripEndDate = moment(thisTrip.date, 'YYYY/MM/DD').add(thisTrip.duration, 'days')
+    return [todaysDate, tripStartDate, tripEndDate]
   }
 }
 

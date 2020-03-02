@@ -1,27 +1,20 @@
 import chai from 'chai';
 const expect = chai.expect;
-// import loginData from '../src/loginData';
-
 import User from '../src/user';
-const spies = require('chai-spies');
-chai.use(spies);
 
-let user, loginData;
+let trip1, trip2, trip3, trip4, trip5, tripsData, user;
 
 describe('User', () => {
 
   beforeEach(() => {
-    user = new User({"id":11,"name":"Joy Dovington","travelerType":"history buff"});
-    loginData = ['traveler1',
-      'traveler2',
-      'traveler3',
-      'traveler4',
-      'traveler5',
-      'traveler6',
-      'traveler7',
-      'traveler8',
-      'traveler9',
-      'traveler10']
+    trip1 = {"id":31,"userID":11,"destinationID":33,"travelers":3,"date":"2020/12/19","duration":15,"status":"approved","suggestedActivities":[]}
+    trip2 = {"id":40,"userID":29,"destinationID":50,"travelers":3,"date":"2020/10/31","duration":13,"status":"approved","suggestedActivities":[]}
+    trip3 = {"id":41,"userID":3,"destinationID":25,"travelers":3,"date":"2020/08/30","duration":11,"status":"approved","suggestedActivities":[]}
+    trip4 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2020/08/08","duration":14,"status":"approved","suggestedActivities":[]}
+    trip5 = {"id":22,"userID":11,"destinationID":35,"travelers":1, "date":"2020/05/03","duration":11,"status":"pending","suggestedActivities":[]}
+    tripsData = [trip1, trip2, trip3, trip4, trip5]
+
+    user = new User({"id":11,"name":"Joy Dovington","travelerType":"history buff"}, tripsData);
   });
 
   it('should be a function', () => {
@@ -44,19 +37,11 @@ describe('User', () => {
     expect(user.travelerType).to.deep.equal('history buff')
   });
 
-  it('should be able to log in', () => {
-    global.domUpdates = {};
-    chai.spy.on(domUpdates, ['populateTravelerPage'], () => {})
-    user.logIn('traveler8', 'traveler2020', loginData);
-    expect(domUpdates.populateTravelerPage).to.be.called(1);
-    expect(domUpdates.populateTravelerPage).to.be.called.with(8)
+  it('should be able to display trips', () => {
+    expect(user.displayTrips()).to.deep.equal([trip1, trip4, trip5])
   });
 
-  it.skip('should be able to display trips', () => {
-    expect(user.displayTrips()).to.deep.equal()
-  });
-
-  it.skip('should be able to display requests', () => {
-    expect(user.displayRequests()).to.deep.equal()
+  it('should be able to display requests', () => {
+    expect(user.displayRequests()).to.deep.equal([trip5])
   });
 });
