@@ -39,10 +39,6 @@ describe('TravelAgent', () => {
     expect(travelAgent.approveTripRequest()).to.deep.equal()
   });
 
-  it.skip('should be able to approve or reject a trip request', () => {
-    expect(travelAgent.approveOrDenyTripRequest()).to.deep.equal()
-  });
-
   it('should be able to calculate their income for the year', () => {
     expect(travelAgent.calculateYearsIncome()).to.deep.equal(3993)
   });
