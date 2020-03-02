@@ -14,14 +14,12 @@ body {
 
 .loginBody {
   background-image: url('../images/LoginBackground.jpg');
-    //Other background url('./images/TravelBackground.jpg')
   background-position: center;
   background-size: 100%;
-  // background-repeat: no-repeat;
 }
 
 .travelerBody {
-  background-image: url('../images/Traveler.jpg');
+  background-image: url('../images/Traveler3.jpg');
   background-position: center;
   background-size: 100%;
   background-attachment: fixed;
@@ -39,9 +37,7 @@ body {
 .login-heading {
   color: black;
   font-size: 3em;
-  // text-decoration: underline;
   padding-left: 1em;
-  // font-weight: bolder;
 }
 
 .login-container {
@@ -131,16 +127,15 @@ body {
   border: 2px solid #000000;
   height: 350px;
   width: 400px;
-  opacity: 0.9;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+  margin-left: 18px;
   border-radius: 4px;
 }
 
 .destination-name {
-  // align-self: center;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -150,7 +145,11 @@ body {
   height: 200px;
   margin: 10px 2% 10px 2%;
   width: 95%;
-  &:hover {opacity: 0.8}
+}
+
+.book-destination {
+  &:hover {opacity: 0.8; cursor: pointer;}
+
 }
 
 .card-cost-info {
@@ -174,11 +173,17 @@ body {
 
 .travelers-trips {
   background-color: #85C7DE;
-  opacity: 1;
+  border-radius: 15px;
 }
 
 .total-spent {
   padding: 15px;
   color: red;
   font-size: 1.1em;
+  background-color: #678464;
+  width: 60%;
+  height: 40%;
+  border-radius: 15px;
+  border: solid 1px black;
+  margin-top: 10px;
 }

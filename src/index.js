@@ -14,7 +14,7 @@ import './css/base.scss';
 import './images/turing-logo.png';
 import './images/LoginBackground.jpg';
 import './images/TravelBackground.jpg';
-import './images/Traveler.jpg'
+import './images/Traveler3.jpg'
 
 let logInButton = document.querySelector('#sub-button');
 let usernameInput = document.querySelector('#usernameInput');

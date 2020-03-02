@@ -75,7 +75,7 @@ let domUpdates = {
         <header data-id='${destination.id}'>
         </header>
         <span data-id='${destination.id}' class='destination-name'>${destination.destination}</span>
-        <img data-id='${destination.id}' tabindex='0' class='card-picture' src='${destination.image}' alt='${destination.alt}'>
+        <img data-id='${destination.id}' tabindex='0' class='card-picture book-destination' src='${destination.image}' alt='${destination.alt}'>
         <p class="card-cost-info">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
         <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
         </div>`)
@@ -94,14 +94,21 @@ let domUpdates = {
         `<div class='travelers-trips card'>
         <img tabindex='0' class='card-picture' src='${tripDestination.image}' alt='${tripDestination.alt}'>
         <p class='traveler-trips-info'><span class='traveler-trips-span'>Location:</span>  ${tripDestination.destination}</p>
-        <p class='traveler-trips-info'><span class='traveler-trips-span'>Trips Cost:</span>  $${curTrip.calculateEstimatedCost()}</p>
+        <p class='traveler-trips-info'><span class='traveler-trips-span'>Trip Cost:</span>  $${curTrip.calculateEstimatedCost()}</p>
         <p class='traveler-trips-info'><span class='traveler-trips-span'>Status:</span>  ${curTrip.status}</p>
         <p class='traveler-trips-info'><span class='traveler-trips-span'>Starting Date:</span>  ${curTrip.date}</p>
         <p class='traveler-trips-info'><span class='traveler-trips-span'># of Travelers:</span>  ${curTrip.travelers}</p>
         </div>
         `)
     })
-    $('main').prepend(`<div class='total-spent'>You have spent $${currentUser.calculateTotalSpent()} in 2020</div>`)
+    $('main').prepend(`<div class='total-spent'>You have spent $${currentUser.calculateTotalSpent()} in 2020
+      <p>Filter My Trips By:</p>
+      <button class='filter-buttons'>Pending</button>
+      <button class='filter-buttons'>Approved</button><br>
+      <button class='filter-buttons'>Past</button>
+      <button class='filter-buttons'>Current</button>
+      <button class='filter-buttons'>Upcoming</button>
+      </div>`)
 
   }
 
