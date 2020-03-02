@@ -3,6 +3,7 @@ import User from './user';
 import TravelAgent from './travelAgent';
 import Traveler from './traveler';
 import Trip from './trip';
+import datepicker from 'js-datepicker'
 
 let currentUser, destinationsData, tripsData, travelersData;
 
@@ -92,6 +93,9 @@ let domUpdates = {
         <p class="card-cost-info">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
         <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
         </div>`)
+
+        // $('.book-destination').click(() => )
+
     })
   },
 
