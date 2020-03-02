@@ -1,4 +1,8 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
+// @import 'variables';
+// @import 'mixins';
+// @import 'traveler-page';
+// @import 'agent-page';
+// ??@import 'login-page'??;
 // $primary-background: ;
 html,
 body {
@@ -16,6 +20,7 @@ body {
   background-image: url('../images/LoginBackground.jpg');
   background-position: center;
   background-size: 100%;
+  background-attachment: fixed;
 }
 
 .travelerBody {
@@ -187,3 +192,66 @@ body {
   border: solid 1px black;
   margin-top: 10px;
 }
+
+//===================Agent Nav Bar==============================
+.agent-button {
+  background-color: green;
+}
+
+//===================Agent RequestsPage==============================
+
+.request-table {
+  border: solid 1px black;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-left: 30px;
+  background-color: white;
+  border-color: black;
+  padding: 5px;
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 1px solid #cccccc;
+
+}
+
+td {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+tr {
+  padding: 10px 5px;
+  border: 1px solid #cccccc;
+  margin: 5px;
+}
+
+
+
+.approve-button {
+  border: solid 1px black;
+  border-radius: 15px;
+  color: white;
+  background-color: green;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer}
+}
+
+.deny-button {
+  border: solid 1px black;
+  color: white;
+  border-radius: 15px;
+  background-color: red;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer}
+}
+.approved-message {
+  color: green;
+  font-style: italic;
+}
+
+.denied-message {
+  color: red;
+  font-style: italic;
+}
+
+//===================Agent Search Page==============================
