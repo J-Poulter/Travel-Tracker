@@ -21,7 +21,6 @@ let usernameInput = document.querySelector('#usernameInput');
 let passwordInput = document.querySelector('#passwordInput');
 
 let destinationsData, tripsData, travelersData;
-let user = new User(0, 'blank', 'none');
 
 logInButton.addEventListener('click', loginHelper)
 
@@ -42,7 +41,21 @@ async function obtainData() {
 function loginHelper() {
   let usernameInfo = usernameInput.value
   let passwordInfo = passwordInput.value
-  domUpdates.transferData(destinationsData, tripsData, travelersData)
-  user.logIn(usernameInfo, passwordInfo, loginData)
+  logIn(usernameInfo, passwordInfo, loginData)
 }
+
+function logIn(username, password) {
+    if (loginData.includes(username) && password === 'travel2020') {
+      domUpdates.transferData(destinationsData, tripsData, travelersData)
+      let usersId = Number(username.slice(8));
+      domUpdates.populateTravelerPage(usersId)
+    }
+    else if (username === 'agency' && password === 'travel2020') {
+      domUpdates.transferData(destinationsData, tripsData, travelersData)
+      domUpdates.populateAgentPage();
+    }
+    else {
+      domUpdates.loginErrorDisplay()
+    }
+  }
 // console.log('This is the JavaScript entry file - your code begins here.');
