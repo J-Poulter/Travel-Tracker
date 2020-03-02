@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 class User {
   constructor(user, tripsData, destinationsData) {
     this.id = user.id;
@@ -13,7 +15,6 @@ class User {
     } else {
       return this.tripsData.filter(trip => trip.userID === this.id)
     }
-
   }
 
   displayRequests() {
@@ -22,6 +23,13 @@ class User {
     } else {
       return this.tripsData.filter(trip => trip.status === 'pending' && trip.userID === this.id)
     }
+  }
+
+  getDateInformation(thisTrip) {
+    let todaysDate = moment();
+    let tripStartDate = moment(thisTrip.date, 'YYYY/MM/DD');
+    let tripEndDate = moment(thisTrip.date, 'YYYY/MM/DD').add(thisTrip.duration, 'days')
+    return [todaysDate, tripStartDate, tripEndDate]
   }
 }
 
