@@ -8,7 +8,7 @@ class Traveler extends User {
     this.usersTrips = this.tripsData.filter(usertrip => usertrip.userID === this.id);
   }
 
-  async makeTripRequest(thisTrip) { //NEEDS TO BE FORMAT OF TRIP OBJ//
+  async makeTripRequest(thisTrip) {
     let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
       method: "POST",
       headers: {
@@ -17,6 +17,7 @@ class Traveler extends User {
     })
       let req = await res.json();
       console.log(req)
+    this.usersTrips.push(thisTrip);
     }
 
   calculateTotalSpent() {

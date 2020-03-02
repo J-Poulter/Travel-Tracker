@@ -12,7 +12,7 @@ class TravelAgent extends User {
   }
 
   async approveTripRequest(tripID) { //NEEDS TO BE AN OBJ WITH ID AND APPROVED/DENIED STATUS ONLY//
-    let thisTrip = {id: tripID}
+    let thisTrip = {"id": tripID, "status": "approved"}
     let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
       method: "POST",
       headers: {
@@ -40,12 +40,12 @@ class TravelAgent extends User {
         return trip
       }
     })
-    return presentTrips
+    return presentTrips;
   }
 
   async deleteUpcomingTrip(tripID) {
     let thisTrip = {"id": tripID}
-    let res = fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
+    let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
