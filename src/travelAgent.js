@@ -2,8 +2,6 @@ import User from './user';
 import Trip from './trip';
 var moment = require('moment');
 
-
-
 class TravelAgent extends User {
   constructor(user, tripsData, destinationsData) {
     super(user, tripsData, destinationsData)
@@ -13,11 +11,8 @@ class TravelAgent extends User {
 
   }
 
-  async approveOrDenyTripRequest(tripID, determination) { //NEEDS TO BE AN OBJ WITH ID AND APPROVED/DENIED STATUS ONLY//
-    let thisTrip = {
-      id: tripID,
-      status: determination
-    }
+  async approveTripRequest(tripID) { //NEEDS TO BE AN OBJ WITH ID AND APPROVED/DENIED STATUS ONLY//
+    let thisTrip = {id: tripID}
     let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
       method: "POST",
       headers: {
@@ -27,17 +22,6 @@ class TravelAgent extends User {
     let req = await res.json();
     console.log(req)
   }
-
-  // denyTripRequest() { //NEEDS TO BE AN OBJ WITH ID AND APPROVED STATUS ONLY//
-  //   let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }, body: JSON.stringify(thisTrip),
-  //   })
-  //   let req = await res.json();
-  //   console.log(req)
-  // }
 
   calculateYearsIncome() {
     let thisYearsTrips = this.tripsData.filter(trip => trip.status === 'approved' && trip.date.includes(2020))
@@ -50,7 +34,6 @@ class TravelAgent extends User {
   }
 
   displayTodaysTrips() {
-    // return this.tripsData.displayPresentTrips())
     let presentTrips = this.tripsData.filter(trip => {
       let datesInfo = this.getDateInformation(trip)
       if (datesInfo[0] > datesInfo[1] && datesInfo[0] < datesInfo[2]) {
