@@ -1,9 +1,11 @@
 import chai from 'chai';
 const expect = chai.expect;
+const spies = require('chai-spies');
 import User from '../src/user'
 import TravelAgent from '../src/travelAgent';
+chai.use(spies);
 
-let trip1, trip2, trip3, trip4, trip5, trip6, tripsData, destination1, destination2, destination3, destination4, destinationsData, travelAgent;
+let trip1, trip2, trip3, trip4, trip5, trip6, trip7, tripsData, destination1, destination2, destination3, destination4, destinationsData, travelAgent;
 
 describe('TravelAgent', () => {
 
@@ -14,6 +16,8 @@ describe('TravelAgent', () => {
     trip4 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2020/08/08","duration":14,"status":"approved","suggestedActivities":[]}
     trip5 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2019/08/08","duration":14,"status":"approved","suggestedActivities":[]}
     trip6 = {"id":42,"userID":11,"destinationID":32,"travelers":1,"date":"2020/02/28","duration":14,"status":"approved","suggestedActivities":[]}
+    trip7 = {"id":45,"userID":12,"destinationID":37,"travelers":1,"date":"2020/02/28","duration":14,"status":"pending","suggestedActivities":[]}
+
     tripsData = [trip1, trip2, trip3, trip4, trip5, trip6]
     destination1 = {"id":32,"destination":"Kathmandu, Nepal","estimatedLodgingCostPerDay":45,"estimatedFlightCostPerPerson":1200,"image":"https://images.unsplash.com/photo-1558799401-1dcba79834c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80","alt":"temple with buntings during daytime"}
     destination2 = {"id":33,"destination":"Brussels, Belgium","estimatedLodgingCostPerDay":1000,"estimatedFlightCostPerPerson":110,"image":"https://images.unsplash.com/photo-1559113202-c916b8e44373?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80","alt":"brown concrete gate"}
@@ -36,6 +40,9 @@ describe('TravelAgent', () => {
   });
 
   it.skip('should be able to approve a trip request', () => {
+    global.window = {};
+    chai.spy.on(window, 'fetch', () => new Promise((resolve, reject) => {}));
+
     expect(travelAgent.approveTripRequest()).to.deep.equal()
   });
 
