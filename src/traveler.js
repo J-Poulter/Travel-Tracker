@@ -1,5 +1,6 @@
 import User from './user';
 import Trip from './trip';
+var moment = require('moment');
 
 class Traveler extends User {
   constructor(user, tripsData, destinationsData) {
@@ -28,15 +29,33 @@ class Traveler extends User {
   }
 
   displayPreviousTrips() {
-    // return this.usersTrips.filter(trip => trip.date < Date.Now())
+    let previousTrips = this.usersTrips.filter(trip => {
+      let datesInfo = this.getDateInformation(trip)
+      if (datesInfo[0] > datesInfo[2]) {
+        return trip
+      }
+    })
+    return previousTrips
   }
 
-  displayPresentTrips() {
-    // return this.usersTrips.filter(trip => trip.date < Date.Now < trip.date+duration())
+  displayPresentTrips(thisTrip) {
+    let presentTrips = this.usersTrips.filter(trip => {
+      let datesInfo = this.getDateInformation(trip)
+      if (datesInfo[0] > datesInfo[1] && datesInfo[0] < datesInfo[2]) {
+        return trip
+      }
+    })
+    return presentTrips
   }
 
   displayUpcomingTrips() {
-    // return this.usersTrips.filter(trip => trip.date > Date.Now())
+    let upcomingTrips = this.usersTrips.filter(trip => {
+      let datesInfo = this.getDateInformation(trip)
+      if (datesInfo[0] < datesInfo[1]) {
+        return trip
+      }
+    })
+    return upcomingTrips
   }
 }
 
