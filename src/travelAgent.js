@@ -1,8 +1,8 @@
 import User from './user';
 import Trip from './trip';
 var moment = require('moment');
-//moment().format(); Correct format??
-moment().format('YYYY MMMM Do');
+
+
 
 class TravelAgent extends User {
   constructor(user, tripsData, destinationsData) {
@@ -50,7 +50,14 @@ class TravelAgent extends User {
   }
 
   displayTodaysTrips() {
-
+    // return this.tripsData.displayPresentTrips())
+    let presentTrips = this.tripsData.filter(trip => {
+      let datesInfo = this.getDateInformation(trip)
+      if (datesInfo[0] > datesInfo[1] && datesInfo[0] < datesInfo[2]) {
+        return trip
+      }
+    })
+    return presentTrips
   }
 
   async deleteUpcomingTrip(tripID) {
