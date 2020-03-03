@@ -142,7 +142,8 @@ body {
 }
 
 .destination-description {
-  
+  background-color: #EDE7B1;
+  padding: 10px;
 }
 
 .destination-name {
@@ -199,15 +200,34 @@ body {
 
 .total-spent {
   padding: 15px;
-  color: red;
+  color: black;
   font-size: 1.1em;
-  background-color: #678464;
+  background-color: #EDE7B1;
   width: 60%;
-  height: 40%;
-  border-radius: 15px;
+  border-radius: 5px;
   border: solid 1px black;
   margin-top: 10px;
 }
+
+.filter-by {
+  text-decoration: underline;
+  font-weight: bolder;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.filter-buttons.approve-button {
+  font-size: 0.8em;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.pending-filter.filter-buttons,
+.approved-filter.filter-buttons {
+  background-color: #8BB6CC;
+}
+
 
 //===================Agent Nav Bar==============================
 .agent-button {

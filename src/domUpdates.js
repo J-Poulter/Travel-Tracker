@@ -32,12 +32,6 @@ let domUpdates = {
     $('main').html('');
     $('body').removeClass('loginBody').addClass('agencyBody')
     currentUser = new TravelAgent({"id":0,"name":'Franky',"travelerType":'Agent'}, tripsData, destinationsData)
-    console.log(currentUser)
-    //FIND PROPER PLACE FOR FUNCTION BELOW
-    let income = currentUser.calculateYearsIncome()
-    console.log(income)
-    let requests = currentUser.displayRequests();
-    console.log(requests)
     this.createAgentNavBar()
     this.createAgentRequestsPage()
   },
@@ -87,9 +81,7 @@ let domUpdates = {
           <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
           <div class='request-form'></div>
         </div>`)
-
         $('.book-destination').click(() => this.openTripRequestForm(event.target.dataset.id))
-
     })
   },
 
@@ -113,9 +105,7 @@ let domUpdates = {
         } else {
           $(event.target).siblings('.input-missing-warning').text('Missing Input Fields!')
         }
-
       })
-    // $('#datepicker').datepicker()
   },
 
   createRequestFormat(date, duration, travelers, id) {
@@ -131,7 +121,6 @@ let domUpdates = {
     }
     currentUser.makeTripRequest(completedRequest)
     this.updateTripsData()
-    // currentUser.usersTrips.push(completedRequest)
     $(event.target).closest('.request-form').html('<p class="approved-message">Request Successfully Sent!</p>')
   },
 
@@ -139,10 +128,7 @@ let domUpdates = {
     $('main').html('')
     theseTrips.forEach(trip => {
       let curTrip = new Trip(trip, destinationsData)
-      console.log(curTrip)
       let tripDestination = curTrip.returnDestinationDetails()
-      console.log(tripDestination)
-      console.log(curTrip)
       $('main').prepend(
         `<div class='travelers-trips card'>
         <img tabindex='0' class='card-picture' src='${tripDestination.image}' alt='${tripDestination.alt}'>
@@ -155,12 +141,12 @@ let domUpdates = {
         `)
     })
     $('main').prepend(`<div class='total-spent'>You have spent $${currentUser.calculateTotalSpent()} in 2020
-      <p>Filter My Trips By:</p>
-      <button class='filter-buttons pending-filter'>Pending</button>
-      <button class='filter-buttons approved-filter'>Approved</button><br>
-      <button class='filter-buttons past-filter'>Past</button>
-      <button class='filter-buttons current-filter'>Current</button>
-      <button class='filter-buttons upcoming-filter'>Upcoming</button>
+      <p class='filter-by'>Filter My Trips By:</p>
+      <button class='filter-buttons approve-button pending-filter'>Pending</button>
+      <button class='filter-buttons approve-button approved-filter'>Approved</button><br>
+      <button class='filter-buttons approve-button past-filter'>Past</button>
+      <button class='filter-buttons approve-button current-filter'>Current</button>
+      <button class='filter-buttons approve-button upcoming-filter'>Upcoming</button>
       </div>`)
       $('.pending-filter').click(() => this.createTravelerTrips(currentUser.displayRequests()))
       $('.approved-filter').click(() => this.createTravelerTrips(currentUser.displayTrips()))
