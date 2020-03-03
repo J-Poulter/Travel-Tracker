@@ -77,7 +77,10 @@ let domUpdates = {
       <button class='traveler-button agent-button agent-button2'>Search Users</button>
       </div></nav>
     `)
-    $('.agent-button1').click(() => this.createAgentRequestsPage())
+    $('.agent-button1').click(() => {
+      this.updateTripsData();
+      this.createAgentRequestsPage();
+    })
     $('.agent-button2').click(() => this.createAgentSearchPage())
   },
 
@@ -164,9 +167,10 @@ let domUpdates = {
   },
 
   async updateTripsData() {
-    await fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
-      let tripRes = await res2.json();
+    let res = await fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
+      let tripRes = await res.json();
       tripsData = await tripRes.trips;
+      currentUser.tripsData = tripsData;
   }
 }
 
