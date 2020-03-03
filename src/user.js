@@ -13,8 +13,12 @@ class User {
     if (this.id === 0) {
       return this.tripsData.filter(trip => trip.status === 'approved')
     } else {
-      return this.tripsData.filter(trip => trip.userID === this.id)
+      return this.tripsData.filter(trip => trip.status === 'approved' && trip.userID === this.id)
     }
+  }
+
+  displayApproved() {
+
   }
 
   displayRequests() {

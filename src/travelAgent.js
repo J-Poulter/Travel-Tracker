@@ -7,13 +7,14 @@ class TravelAgent extends User {
     super(user, tripsData, destinationsData)
   }
 
-  searchUserDetails() {
-
+  searchUserDetails(searchWord, travelersData) {
+    let searchThis = searchWord.toLowerCase();
+    return travelersData.filter(traveler => traveler.name.toLowerCase().includes(searchThis))
   }
 
-  async approveTripRequest(tripID) { //NEEDS TO BE AN OBJ WITH ID AND APPROVED/DENIED STATUS ONLY//
+  async approveTripRequest(tripID) { 
     let thisTrip = {"id": tripID, "status": "approved"}
-    let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
+    let res = await window.fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -45,7 +46,7 @@ class TravelAgent extends User {
 
   async deleteUpcomingTrip(tripID) {
     let thisTrip = {"id": tripID}
-    let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
+    let res = await window.fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"

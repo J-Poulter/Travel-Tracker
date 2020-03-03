@@ -22,32 +22,16 @@ let domUpdates = {
     $('main').html('');
     $('body').removeClass('loginBody').addClass('travelerBody')
     $('main').addClass('destinations-display')
-    this.createDestinationCards();
-
     let thisUser = travelersData.find(user => user.id == usersId)
     currentUser = new Traveler(thisUser, tripsData, destinationsData)
-    let spent = currentUser.calculateTotalSpent()
-    console.log(currentUser)
-    console.log(spent)
-    let trips = currentUser.displayTrips()
-    console.log(trips)
-    let pending = currentUser.displayRequests();
-    console.log(pending)
-
     this.createTravelerNavBar()
-
+    this.createDestinationCards();
   },
 
   populateAgentPage() {
     $('main').html('');
     $('body').removeClass('loginBody').addClass('agencyBody')
     currentUser = new TravelAgent({"id":0,"name":'Franky',"travelerType":'Agent'}, tripsData, destinationsData)
-    console.log(currentUser)
-    //FIND PROPER PLACE FOR FUNCTION BELOW
-    let income = currentUser.calculateYearsIncome()
-    console.log(income)
-    let requests = currentUser.displayRequests();
-    console.log(requests)
     this.createAgentNavBar()
     this.createAgentRequestsPage()
   },
@@ -66,7 +50,7 @@ let domUpdates = {
       </div></nav>
     `)
     $('.traveler-button1').click(() => this.createDestinationCards())
-    $('.traveler-button2').click(() => this.createTravelerTrips())
+    $('.traveler-button2').click(() => this.createTravelerTrips(currentUser.usersTrips))
   },
 
   createAgentNavBar() {
@@ -77,36 +61,74 @@ let domUpdates = {
       <button class='traveler-button agent-button agent-button2'>Search Users</button>
       </div></nav>
     `)
-    $('.agent-button1').click(() => this.createAgentRequestsPage())
+    $('.agent-button1').click(() => {
+      this.updateTripsData();
+      this.createAgentRequestsPage();
+    })
     $('.agent-button2').click(() => this.createAgentSearchPage())
   },
 
   createDestinationCards() {
-    $('main').html('')
+    $('main').html('').append(`<div class='card destination-description'><h1>The following cards are all available vacation destinations!</h1><p>(To book a trip, click the image of the destination and fill out all the input fields)</p></div>`)
     destinationsData.forEach(destination => {
-      $('main').prepend(
+      $('main').append(
         `<div id='${destination.id}' class='card'>
-        <header data-id='${destination.id}'>
-        </header>
-        <span data-id='${destination.id}' class='destination-name'>${destination.destination}</span>
-        <img data-id='${destination.id}' tabindex='0' class='card-picture book-destination' src='${destination.image}' alt='${destination.alt}'>
-        <p class="card-cost-info">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
-        <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
+          <header data-id='${destination.id}'>
+          </header>
+          <span data-id='${destination.id}' class='destination-name'>${destination.destination}</span>
+          <img data-id='${destination.id}' tabindex='0' class='card-picture book-destination' src='${destination.image}' alt='${destination.alt}'>
+          <p class="card-cost-info">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
+          <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
+          <div class='request-form'></div>
         </div>`)
-
-        // $('.book-destination').click(() => )
-
+        $('.book-destination').click(() => this.openTripRequestForm(event.target.dataset.id))
     })
   },
 
-  createTravelerTrips() {
+  openTripRequestForm(dataId) {
+    $(event.target).siblings('.request-form').html('').append(
+      `<label for='datepicker' class='form-label'>Date(YYYY/MM/DD):</label>
+      <input id='datepicker' type='text' class='request-inputs' size='30'>
+      <label for='duration' class='form-label'>Duration(days):</label>
+      <input id='duration' type='text' class='request-inputs' size='30'>
+      <label for='travelersNum' class='form-label'>Number of Travelers:</label>
+      <input id='travelersNum' type='text' class='request-inputs' size='30'>
+      <button data-id='${dataId}' class='traveler-button submit-request-button'>Submit Trip Request</button>
+      <p class='input-missing-warning denied-message'></p>
+      `)
+      $('.submit-request-button').click(() => {
+        let date = $('#datepicker').val()
+        let duration = $('#duration').val()
+        let travelers = $('#travelersNum').val()
+        if (date.length && duration.length && travelers.length) {
+          this.createRequestFormat(date, duration, travelers, event.target.dataset.id)
+        } else {
+          $(event.target).siblings('.input-missing-warning').text('Missing Input Fields!')
+        }
+      })
+  },
+
+  createRequestFormat(date, duration, travelers, id) {
+    let completedRequest = {
+      "id": Date.now(),
+      "userID": currentUser.id,
+      "destinationID": Number(id),
+      "travelers": Number(travelers),
+      "date": date,
+      "duration": Number(duration),
+      "status": "pending",
+      "suggestedActivities": []
+    }
+    currentUser.makeTripRequest(completedRequest)
+    this.updateTripsData()
+    $(event.target).closest('.request-form').html('<p class="approved-message">Request Successfully Sent!</p>')
+  },
+
+  createTravelerTrips(theseTrips) {
     $('main').html('')
-    currentUser.usersTrips.forEach(trip => {
+    theseTrips.forEach(trip => {
       let curTrip = new Trip(trip, destinationsData)
-      console.log(curTrip)
       let tripDestination = curTrip.returnDestinationDetails()
-      console.log(tripDestination)
-      console.log(curTrip)
       $('main').prepend(
         `<div class='travelers-trips card'>
         <img tabindex='0' class='card-picture' src='${tripDestination.image}' alt='${tripDestination.alt}'>
@@ -119,13 +141,18 @@ let domUpdates = {
         `)
     })
     $('main').prepend(`<div class='total-spent'>You have spent $${currentUser.calculateTotalSpent()} in 2020
-      <p>Filter My Trips By:</p>
-      <button class='filter-buttons'>Pending</button>
-      <button class='filter-buttons'>Approved</button><br>
-      <button class='filter-buttons'>Past</button>
-      <button class='filter-buttons'>Current</button>
-      <button class='filter-buttons'>Upcoming</button>
+      <p class='filter-by'>Filter My Trips By:</p>
+      <button class='filter-buttons approve-button pending-filter'>Pending</button>
+      <button class='filter-buttons approve-button approved-filter'>Approved</button><br>
+      <button class='filter-buttons approve-button past-filter'>Past</button>
+      <button class='filter-buttons approve-button current-filter'>Current</button>
+      <button class='filter-buttons approve-button upcoming-filter'>Upcoming</button>
       </div>`)
+      $('.pending-filter').click(() => this.createTravelerTrips(currentUser.displayRequests()))
+      $('.approved-filter').click(() => this.createTravelerTrips(currentUser.displayTrips()))
+      $('.past-filter').click(() => this.createTravelerTrips(currentUser.displayPreviousTrips()))
+      $('.current-filter').click(() => this.createTravelerTrips(currentUser.displayPresentTrips()))
+      $('.upcoming-filter').click(() => this.createTravelerTrips(currentUser.displayUpcomingTrips()))
   },
 
   createAgentRequestsPage() {
@@ -164,9 +191,10 @@ let domUpdates = {
   },
 
   async updateTripsData() {
-    await fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
-      let tripRes = await res2.json();
+    let res = await fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
+      let tripRes = await res.json();
       tripsData = await tripRes.trips;
+      currentUser.tripsData = tripsData;
   }
 }
 

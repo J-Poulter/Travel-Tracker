@@ -38,7 +38,7 @@ describe('User', () => {
   });
 
   it('should be able to display trips', () => {
-    expect(user.displayTrips()).to.deep.equal([trip1, trip4, trip5])
+    expect(user.displayTrips()).to.deep.equal([trip1, trip4])
   });
 
   it('should be able to display requests', () => {
