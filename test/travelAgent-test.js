@@ -36,8 +36,12 @@ describe('TravelAgent', () => {
     expect(travelAgent).to.be.an.instanceof(TravelAgent)
   });
 
-  it.skip('should be able to search for a users details', () => {
-    expect(travelAgent.searchUserDetails()).to.deep.equal()
+  it('should be able to search for a users details', () => {
+    let traveler1 = {"id":1,"name":"Ham Leadbeater","travelerType":"relaxer"}
+    let traveler2 = {"id":2,"name":"Rachael Vaughten","travelerType":"thrill-seeker"}
+    let traveler3 = {"id":3,"name":"Sibby Tenner","travelerType":"shopper"}
+    let travelersData = [traveler1, traveler2, traveler3]
+    expect(travelAgent.searchUserDetails('ten', travelersData)).to.deep.equal([traveler2, traveler3])
   });
 
   it('should be able to approve a trip request', () => {
