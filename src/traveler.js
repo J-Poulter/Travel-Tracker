@@ -9,7 +9,7 @@ class Traveler extends User {
   }
 
   async makeTripRequest(thisTrip) {
-    let res = await fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
+    let res = await window.fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
