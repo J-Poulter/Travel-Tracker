@@ -7,8 +7,9 @@ class TravelAgent extends User {
     super(user, tripsData, destinationsData)
   }
 
-  searchUserDetails() {
-
+  searchUserDetails(searchWord, travelersData) {
+    let searchThis = searchWord.toLowerCase();
+    return travelersData.filter(traveler => traveler.name.toLowerCase().includes(searchThis))
   }
 
   async approveTripRequest(tripID) { //NEEDS TO BE AN OBJ WITH ID AND APPROVED/DENIED STATUS ONLY//
