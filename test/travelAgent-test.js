@@ -44,6 +44,14 @@ describe('TravelAgent', () => {
     expect(travelAgent.searchUserDetails('ten', travelersData)).to.deep.equal([traveler2, traveler3])
   });
 
+  it('should return an empty array if there were no matching results so that the dom can update with an error message', () => {
+    let traveler1 = {"id":1,"name":"Ham Leadbeater","travelerType":"relaxer"}
+    let traveler2 = {"id":2,"name":"Rachael Vaughten","travelerType":"thrill-seeker"}
+    let traveler3 = {"id":3,"name":"Sibby Tenner","travelerType":"shopper"}
+    let travelersData = [traveler1, traveler2, traveler3]
+    expect(travelAgent.searchUserDetails('Trsa', travelersData)).to.deep.equal([])
+  })
+
   it('should be able to approve a trip request', () => {
     travelAgent.approveTripRequest(7)
     expect(window.fetch).to.be.called(1)
@@ -61,6 +69,12 @@ describe('TravelAgent', () => {
 
   it('should be able to display all of todays trips', () => {
     expect(travelAgent.displayTodaysTrips()).to.deep.equal([trip2, trip3, trip6])
+  });
+
+  it('should return an empty array if there are no trips today so that the dom can return a differnt message', () => {
+    tripsData = [trip1, trip4, trip5]
+    travelAgent = new TravelAgent({"id":0,"name":'Franky',"travelerType":'Agent'}, tripsData, destinationsData)
+    expect(travelAgent.displayTodaysTrips()).to.deep.equal([])
   });
 
   it('should be able to delete an upcoming trip', () => {
