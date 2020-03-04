@@ -6,7 +6,7 @@ The Travel Tracker is an application that provides users with a tool to help the
 
 On the other side of things, if the user is a travel agent they can log in as an agent and their page displays will be something else.  The first page they will encounter is one that displays all of the currently outstanding trip requests and related information that describes each trip such as name, id, destination.  From that table, they can quickly and easily choose to approve or deny each request.  On the right side of the page is a display of all trips currently occurring.  They can click a button in the nav heading which brings them to a search page where they can search for a list of users by name, and they will get a list of all that persons trips.
 
-#### Visual Demonstration of App in User
+#### Visual Demonstration of App in Use
 
  Here we can see a visual demonstration of the application in use from the user's(traveler) perspective:
 
