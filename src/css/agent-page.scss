@@ -1,0 +1,140 @@
+//===================Agent RequestsPage==============================
+.agent-button {
+  background-color: green;
+}
+
+.agent-display-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.request-heading {
+  @include request-section($background-tan);
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.request-table {
+  @include request-section(white);
+  padding: 5px;
+  border-collapse: collapse;
+}
+
+th {
+  text-decoration: underline;
+  padding: 8px;
+  border: $border-gray;
+}
+
+td {
+  border: $border-gray;
+  padding: 8px;
+  text-align: center;
+}
+
+tr {
+  padding: $padding-small 5px;
+  border: $border-gray;
+  margin: $margin-small;
+}
+
+.approve-button {
+  @include button-styler(green);
+}
+
+.deny-button {
+  @include button-styler(red);
+}
+
+.approved-message {
+  @include status-messages(green, 5px)
+}
+
+.denied-message {
+  @include status-messages(red, 30px)
+}
+
+.row-two-clear {
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.todays-trips-container {
+  width: 75%;
+  text-align: center;
+  margin-right: 30px;
+  margin-top: 30px;
+  background-color: $background-lightblue;
+  border-radius: $radius-medium;
+  border: $border-gray;
+}
+
+.todays-trips-heading {
+  border-bottom: $border-gray;
+  margin-bottom: 0;
+}
+
+.todays-trips-entry {
+  border-bottom: dashed 1px #CCCCCC;
+  padding: 15px;
+  margin: 0;
+}
+
+
+div.years-income {
+  position: absolute;
+  top: -10px;
+  padding: $padding-small;
+  left: -1px;
+  font-size: 0.3em;
+  color: navy;
+}
+//===================Agent Search Page==============================
+.agent-search-page {
+  display: flex;
+  justify-content: center;
+}
+
+.search-container {
+  width: 45%;
+  background-color: white;
+  margin-top: 20px;
+  border: $border-gray;
+  border-radius: 10px;
+}
+
+.search-input-container {
+  display: flex;
+  flex-direction: row;
+  border: $border-black;
+  background: white;
+  justify-content: space-between;
+}
+
+.search-input {
+  color: #2B4E80;
+  font-size: 2em;
+  padding: $padding-small;
+  width: 80%;
+  border: none;
+}
+
+.search-image {
+  border: $border-gray;
+  border-radius: 100%;
+}
+
+.search-results-message {
+  text-align: center;
+  color: #CCCCCC;
+}
+
+.search-results-table {
+  border-collapse: collapse;
+}
+
+.search-row {
+  border: $border-gray;
+}
