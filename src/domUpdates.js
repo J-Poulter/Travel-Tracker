@@ -7,9 +7,6 @@ import datepicker from 'js-datepicker'
 
 let currentUser, destinationsData, tripsData, travelersData;
 
-
-
-
 let domUpdates = {
 
   transferData(destinations, trips, travelers) {
@@ -312,6 +309,5 @@ let domUpdates = {
       currentUser.tripsData = tripsData;
   }
 }
-
 
 export default domUpdates;
