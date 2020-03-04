@@ -159,19 +159,23 @@ let domUpdates = {
     $('main').removeClass('agent-search-page').addClass('agent-display-page').html('').prepend(`<div class='pending-trips-container'>
     <h1 class='request-heading' align='center'>Current Outstanding Trip Requests:</h1>
     <table class='request-table'>
-    <th class='request-row-heading'>Id</th>
+    <th class='request-row-heading'>Name</th>
     <th class='request-row-heading'>Date</th>
     <th class='request-row-heading'>Duration(days)</th>
+    <th class='request-row-heading'>Trip Cost</th>
     <th class='request-row-heading'>Approve</th>
     <th class='request-row-heading'>Deny</th>
     </table>
     </div>`)
     allReqs.forEach(request => {
+      let thisTrip = new Trip(request, destinationsData)
+      let thisUser = travelersData.find(user => user.id === request.userID)
       $('.request-table').append(
         `<tr class='request-row request${request.id}'>
-          <td>${request.id}</td>
+          <td>${thisUser.name}</td>
           <td>${request.date}</td>
           <td>${request.duration}</td>
+          <td>$${thisTrip.calculateEstimatedCost()}</td>
           <td><button data-id='${request.id}' class='approve-button'>Approve Request</button></td>
           <td><button data-id='${request.id}' class='deny-button'>Deny Request</button></td>
         `)
