@@ -1,0 +1,33 @@
+@mixin button-styler($col) {
+  border: $border-black;
+  color: white;
+  border-radius: $radius-medium;
+  background-color: $col;
+  &:hover {box-shadow: 2px 2px #000000; cursor: pointer}
+}
+
+@mixin input-images {
+  position: absolute;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+@mixin page-backgrounds($url) {
+  background-image: url($url);
+  background-position: center;
+  background-size: 100%;
+  background-attachment: fixed;
+}
+
+@mixin request-section($b-col) {
+  background-color: $b-col;
+  border: $border-black;
+  margin-left: 30px;
+  width: 90%;
+}
+
+@mixin status-messages($stat-col, $pad-num) {
+  color: $stat-col;
+  font-style: italic;
+  padding-left: $pad-num;
+}
