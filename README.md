@@ -14,7 +14,7 @@ On the other side of things, if the user is a travel agent they can log in as an
 
  Here we can see a visual demonstration of the applicaiton in use from the agent's perspective:
 
- ![Agent Display](https://user-images.githubusercontent.com/51523262/75901917-28445300-5e37-11ea-9f1a-1f0a7011c39a.gif)
+ ![Agent Display](https://user-images.githubusercontent.com/51523262/75902262-a9034f00-5e37-11ea-819c-c5dc6f7b0312.gif)
 
 
 #### Install/Setup
