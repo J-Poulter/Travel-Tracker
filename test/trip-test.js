@@ -48,4 +48,15 @@ describe('Trip', () => {
   it('should be able to calculate the estimated cost of the trip', () => {
     expect(trip.calculateEstimatedCost()).to.deep.equal(6270)
   })
+
+  it('should be able to return the destination details of the trip', () => {
+    expect(trip.returnDestinationDetails()).to.deep.equal({
+      id: 9,
+      destination: 'Amsterdam, Netherlands',
+      estimatedLodgingCostPerDay: 100,
+      estimatedFlightCostPerPerson: 950,
+      image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+      alt: 'canal with boats and trees and buildings along the side'
+    })
+  })
 })
