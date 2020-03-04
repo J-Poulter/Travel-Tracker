@@ -19,9 +19,8 @@ let domUpdates = {
   },
 
   populateTravelerPage(usersId) {
-    $('main').html('');
+    $('main').html('').addClass('destinations-display');
     $('body').removeClass('loginBody').addClass('travelerBody')
-    $('main').addClass('destinations-display')
     let thisUser = travelersData.find(user => user.id == usersId)
     currentUser = new Traveler(thisUser, tripsData, destinationsData)
     this.createTravelerNavBar()
@@ -29,7 +28,7 @@ let domUpdates = {
   },
 
   populateAgentPage() {
-    $('main').html('');
+    $('main').html('').addClass('agent-display-page');
     $('body').removeClass('loginBody').addClass('agencyBody')
     currentUser = new TravelAgent({"id":0,"name":'Franky',"travelerType":'Agent'}, tripsData, destinationsData)
     this.createAgentNavBar()
@@ -69,7 +68,7 @@ let domUpdates = {
   },
 
   createDestinationCards() {
-    $('main').html('').append(`<div class='card destination-description'><h1>The following cards are all available vacation destinations!</h1><p>(To book a trip, click the image of the destination and fill out all the input fields)</p></div>`)
+    $('main').html('').append(`<div class="description-background-flex"><div class='card destination-description'><h1 align="center">The following locations are all available vacation destinations!</h1><p align="center">(To book a trip, click the image of the destination and fill out all the input fields)</p></div></div>`)
     destinationsData.forEach(destination => {
       $('main').append(
         `<div id='${destination.id}' class='card'>
@@ -77,22 +76,23 @@ let domUpdates = {
           </header>
           <span data-id='${destination.id}' class='destination-name'>${destination.destination}</span>
           <img data-id='${destination.id}' tabindex='0' class='card-picture book-destination' src='${destination.image}' alt='${destination.alt}'>
-          <p class="card-cost-info">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
-          <p class="card-cost-info">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
+          <p class="card-cost-info flight-cost">Flight Cost per Person: $${destination.estimatedFlightCostPerPerson}</p>
+          <p class="card-cost-info lodging-cost">Lodging Cost per Day: $${destination.estimatedLodgingCostPerDay}</p>
           <div class='request-form'></div>
         </div>`)
-        $('.book-destination').click(() => this.openTripRequestForm(event.target.dataset.id))
+        $('.book-destination').click(() => this.openTripRequestForm(event.target.dataset.id)
+        )
     })
   },
 
-  openTripRequestForm(dataId) {
+  openTripRequestForm(dataId, flightCost, lodgingCost) {
     $(event.target).siblings('.request-form').html('').append(
       `<label for='datepicker' class='form-label'>Date(YYYY/MM/DD):</label>
       <input id='datepicker' type='text' class='request-inputs' size='30'>
       <label for='duration' class='form-label'>Duration(days):</label>
-      <input id='duration' type='text' class='request-inputs' size='30'>
+      <input id='duration' type='text' class='request-inputs req-estimate-inputs' size='30'>
       <label for='travelersNum' class='form-label'>Number of Travelers:</label>
-      <input id='travelersNum' type='text' class='request-inputs' size='30'>
+      <input id='travelersNum' type='text' class='request-inputs req-estimate-inputs' size='30'>
       <button data-id='${dataId}' class='traveler-button submit-request-button'>Submit Trip Request</button>
       <p class='input-missing-warning denied-message'></p>
       `)
@@ -121,7 +121,8 @@ let domUpdates = {
     }
     currentUser.makeTripRequest(completedRequest)
     this.updateTripsData()
-    $(event.target).closest('.request-form').html('<p class="approved-message">Request Successfully Sent!</p>')
+    let thisTrip = new Trip(completedRequest, destinationsData)
+    $(event.target).closest('.request-form').html(`<p class="approved-message">Request Successfully Sent!</p><p>Your Estimated Trip Cost is <u><strong>$${thisTrip.calculateEstimatedCost()}</strong></u></p>`)
   },
 
   createTravelerTrips(theseTrips) {
@@ -140,14 +141,14 @@ let domUpdates = {
         </div>
         `)
     })
-    $('main').prepend(`<div class='total-spent'>You have spent $${currentUser.calculateTotalSpent()} in 2020
+    $('main').prepend(`<div class="description-background-flex"><div class='total-spent'>You have spent <strong><u>$${currentUser.calculateTotalSpent()}</u></strong> in 2020<br><br>
       <p class='filter-by'>Filter My Trips By:</p>
       <button class='filter-buttons approve-button pending-filter'>Pending</button>
       <button class='filter-buttons approve-button approved-filter'>Approved</button><br>
       <button class='filter-buttons approve-button past-filter'>Past</button>
       <button class='filter-buttons approve-button current-filter'>Current</button>
       <button class='filter-buttons approve-button upcoming-filter'>Upcoming</button>
-      </div>`)
+      </div></div>`)
       $('.pending-filter').click(() => this.createTravelerTrips(currentUser.displayRequests()))
       $('.approved-filter').click(() => this.createTravelerTrips(currentUser.displayTrips()))
       $('.past-filter').click(() => this.createTravelerTrips(currentUser.displayPreviousTrips()))
@@ -158,10 +159,11 @@ let domUpdates = {
   createAgentRequestsPage() {
     let allReqs = currentUser.displayRequests()
     $('main').html('').prepend(`<div class='pending-trips-container'>
+    <h1 class='request-heading' align='center'>Current Outstanding Trip Requests:</h1>
     <table class='request-table'>
     <th class='request-row-heading'>Id</th>
     <th class='request-row-heading'>Date</th>
-    <th class='request-row-heading'>Duration</th>
+    <th class='request-row-heading'>Duration(days)</th>
     <th class='request-row-heading'>Approve</th>
     <th class='request-row-heading'>Deny</th>
     </table>
@@ -178,12 +180,36 @@ let domUpdates = {
     })
     $('.approve-button').click(() => {
       currentUser.approveTripRequest(Number(event.target.dataset.id))
-      $(event.target).closest('.request-row').html('<p class="approved-message">This Trip has been approved!</p>')
+      $(event.target).closest('.request-row').html('<p class="approved-message request-messages">Trip ID# ' + event.target.dataset.id + ' has been approved!</p>')
     })
     $('.deny-button').click(() => {
       currentUser.deleteUpcomingTrip(Number(event.target.dataset.id))
-      $(event.target).closest('.request-row').html('<p class="denied-message">This Trip has been denied!</p>')
+      $(event.target).closest('.request-row').html('<p class="denied-message request-messages">Trip ID#' + event.target.dataset.id + ' has been denied!</p>')
     })
+    this.createAgentTodaysTripsTable()
+  },
+
+  createAgentTodaysTripsTable() {
+    let todaysTrips = currentUser.displayTodaysTrips()
+    $('main').append(`<div class='row-two-clear'>
+      <div class="todays-trips-container">
+      </div>
+      </div>
+      `)
+      $('.todays-trips-container').append(() => {
+        if (todaysTrips.length) {
+          return `<h1 class="todays-trips-heading">There Are ${todaysTrips.length} Trips Currently in Progress:</h1>`
+      } else {
+        return `<h1>No Trips Currently in Progress!</h1>`
+      }
+    })
+
+      todaysTrips.forEach(trip => {
+        let tripsUser = travelersData.find(traveler => traveler.id === trip.userID)
+        let tripsDestination = destinationsData.find(destination => destination.id === trip.destinationID)
+        $('.todays-trips-container').append(`<p class="todays-trips-entry">*${tripsUser.name} (Id#${tripsUser.id}) is on a ${trip.duration} day trip with ${trip.travelers - 1} other traveler(s) visiting ${tripsDestination.destination}! (trip started on ${trip.date})</p>`)
+      })
+
   },
 
   createAgentSearchPage() {
