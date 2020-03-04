@@ -105,10 +105,11 @@ body {
   position: relative;
 }
 
+
 .traveler-button-container {
   position: absolute;
   top: 2;
-  right: 10px;
+  right: 20px;
 
 }
 
@@ -333,9 +334,61 @@ tr {
 
 .todays-trips-entry {
   border-bottom: dashed 1px #cccccc;
-  // margin-top: 15px;
   padding: 15px;
   margin: 0;
 }
 
+
+div.years-income {
+  position: absolute;
+  top: -10px;
+  padding: 10px;
+  left: -1px;
+  font-size: 0.3em;
+  color: navy;
+}
 //===================Agent Search Page==============================
+
+.agent-search-page {
+  display: flex;
+  justify-content: center;
+}
+
+.search-container {
+  width: 45%;
+  background-color: white;
+  margin-top: 20px;
+  border: solid 1px #CCCCDC;
+  border-radius: 10px;
+}
+
+.search-input-container {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px black;
+  background: white;
+  justify-content: space-between;
+}
+
+.search-input {
+  color: #2B4E80;
+  font-size: 2em;
+  padding: 10px;
+  width: 80%;
+  border: none;
+}
+
+.search-image {
+  border: solid 1px #CCCCCC;
+  border-radius: 100%;
+}
+
+.search-results-message {
+  text-align: center;
+  color: #cccccc;
+
+}
+
+.search-results-table {
+  border-collapse: collapse;
+}
