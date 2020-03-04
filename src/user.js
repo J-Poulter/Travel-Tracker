@@ -17,10 +17,6 @@ class User {
     }
   }
 
-  displayApproved() {
-
-  }
-
   displayRequests() {
     if (this.id === 0) {
       return this.tripsData.filter(trip => trip.status === 'pending')

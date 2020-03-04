@@ -28,7 +28,7 @@ let domUpdates = {
   },
 
   populateAgentPage() {
-    $('main').html('').addClass('agent-display-page');
+    $('main').html('') //.addClass('agent-display-page');
     $('body').removeClass('loginBody').addClass('agencyBody')
     currentUser = new TravelAgent({"id":0,"name":'Franky',"travelerType":'Agent'}, tripsData, destinationsData)
     this.createAgentNavBar()
@@ -55,6 +55,7 @@ let domUpdates = {
   createAgentNavBar() {
     $('body').prepend(`
       <nav class='traveler-nav'>Welcome ${currentUser.name}!
+      <div class='years-income'>Agent fees earned for 2020: $${currentUser.calculateYearsIncome()}</div>
       <div class='traveler-button-container'>
       <button class='traveler-button agent-button agent-button1'>Pending Requests</button>
       <button class='traveler-button agent-button agent-button2'>Search Users</button>
@@ -158,7 +159,7 @@ let domUpdates = {
 
   createAgentRequestsPage() {
     let allReqs = currentUser.displayRequests()
-    $('main').html('').prepend(`<div class='pending-trips-container'>
+    $('main').removeClass('agent-search-page').addClass('agent-display-page').html('').prepend(`<div class='pending-trips-container'>
     <h1 class='request-heading' align='center'>Current Outstanding Trip Requests:</h1>
     <table class='request-table'>
     <th class='request-row-heading'>Id</th>
@@ -213,7 +214,95 @@ let domUpdates = {
   },
 
   createAgentSearchPage() {
-    $('main').html('')
+    $('main').removeClass('agent-display-page').addClass('agent-search-page').html('').append(`
+      <div class="search-container">
+      <div class="search-input-container">
+      <input type="text" class="search-input" placeholder="Search Users By Name Here" size="80">
+      <input type="image" class="search-image" src="https://image.flaticon.com/icons/svg/762/762652.svg" width="70px" height="70px">
+      </div>
+      <div class="search-results-container">
+      <p class="search-results-message"><i>Click the search icon after entering a name and results will appear here</i></p>
+      </div>
+      </div>`)
+      $('.search-image').click(() => {
+        let searchThis = $('.search-input').val()
+        this.populateSearchResults(searchThis)
+      })
+  },
+
+  populateSearchResults(searchThis) {
+    let foundUsers = currentUser.searchUserDetails(searchThis, travelersData);
+    if (!foundUsers.length) {
+      $('.search-results-message').text(`Sorry, no results found for "${searchThis}"`)
+    } else {
+      $('.search-results-container').html('').append(`
+        <table class="search-results-table">
+        <th class="results-row-heading">Name</th>
+        <th class="results-row-heading">Trip</th>
+        <th class="results-row-heading">Status</th>
+        <th class="results-row-heading">Trip Cost</th>
+        <th class="results-row-heading">Approve(if available)</th>
+        <th class="results-row-heading">Deny(if available)</th>
+        </table>
+        `)
+      foundUsers.forEach(foundUser => {
+        let thisUser = new Traveler(foundUser, tripsData, destinationsData)
+        let pastTrips = thisUser.displayPreviousTrips()
+        let presentTrips = thisUser.displayPresentTrips()
+        let futureTrips = thisUser.displayUpcomingTrips()
+        pastTrips.forEach(pastTrip => {
+          let thisTrip = new Trip(pastTrip, destinationsData)
+          let thisDestination = thisTrip.returnDestinationDetails()
+          $('.search-results-table').append(
+            `<tr class='search-row'>
+              <td>${thisUser.name}</td>
+              <td>${thisDestination.destination}, Id#${thisTrip.id}</td>
+              <td>Past</td>
+              <td>$${thisTrip.calculateEstimatedCost()}</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            `
+          )
+        })
+        presentTrips.forEach(presentTrip => {
+          let thisTrip = new Trip(presentTrip, destinationsData)
+          let thisDestination = thisTrip.returnDestinationDetails()
+          $('.search-results-table').append(
+            `<tr class='search-row'>
+              <td>${thisUser.name}</td>
+              <td>${thisDestination.destination}, Id#${thisTrip.id}</td>
+              <td>Present</td>
+              <td>$${thisTrip.calculateEstimatedCost()}</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            `
+          )
+        })
+        futureTrips.forEach(futureTrip => {
+          let thisTrip = new Trip(futureTrip, destinationsData)
+          let thisDestination = thisTrip.returnDestinationDetails()
+          $('.search-results-table').append(
+            `<tr class='search-row'>
+              <td>${thisUser.name}</td>
+              <td>${thisDestination.destination}, Id#${thisTrip.id}</td>
+              <td>Future</td>
+              <td>$${thisTrip.calculateEstimatedCost()}</td>
+              <td><button data-id='${thisTrip.id}' class='approve-button approve-button2'>Approve Trip</td>
+              <td><button data-id='${thisTrip.id}' class='deny-button deny-button2'>Delete Trip</td>
+            `
+          )
+        })
+        $('.approve-button2').click(() => {
+          currentUser.approveTripRequest(Number(event.target.dataset.id))
+          $(event.target).closest('.search-row').html('<p class="approved-message request-messages">Trip ID# ' + event.target.dataset.id + ' has been approved!</p>')
+        })
+        $('.deny-button2').click(() => {
+          currentUser.deleteUpcomingTrip(Number(event.target.dataset.id))
+          $(event.target).closest('.search-row').html('<p class="denied-message request-messages">Trip ID#' + event.target.dataset.id + ' has been denied!</p>')
+        })
+      })
+    }
+
   },
 
   async updateTripsData() {
