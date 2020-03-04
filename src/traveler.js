@@ -39,7 +39,7 @@ class Traveler extends User {
     return previousTrips
   }
 
-  displayPresentTrips(thisTrip) {
+  displayPresentTrips() {
     let presentTrips = this.usersTrips.filter(trip => {
       let datesInfo = this.getDateInformation(trip)
       if (datesInfo[0] > datesInfo[1] && datesInfo[0] < datesInfo[2]) {
