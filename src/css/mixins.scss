@@ -31,3 +31,25 @@
   font-style: italic;
   padding-left: $pad-num;
 }
+
+@mixin destination-columns($grid-count) {
+  .destinations-display {
+    display: grid;
+    grid-template-columns: $grid-count;
+  }
+}
+
+
+
+@mixin agent-display($margin-pix, $width-trip, $width-search) {
+  .todays-trips-container{
+    margin-top: $margin-pix;
+    margin-right: $margin-pix;
+    width: $width-trip;
+  }
+
+  .search-container {
+    width: $width-search;
+    margin-top: $margin-pix;
+  }
+}
