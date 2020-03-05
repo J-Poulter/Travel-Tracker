@@ -138,3 +138,39 @@ div.years-income {
 .search-row {
   border: $border-gray;
 }
+
+//========================Screen Responsiveness====================
+
+@media screen and (max-width: $screen-computer) {
+  @include agent-display(30px, 75%, 50%)
+}
+
+@media screen and (max-width: $screen-tablet) {
+  @include agent-display(20px, 85%, 75%)
+  .traveler-button-container {
+    position: absolute;
+    top: 2;
+    top: 40px;
+    right: 300px;
+  }
+}
+
+
+@media screen and (max-width: $screen-phone) {
+  @include agent-display(10px, 90%, 90%)
+  .agent-display-page {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .traveler-button-container {
+    position: absolute;
+    top: 2;
+    top: 40px;
+    right: 130px;
+}
+
+  .search-results-container {
+    overflow-x: auto;
+  }
+}

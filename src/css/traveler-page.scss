@@ -133,3 +133,22 @@
 .approved-filter.filter-buttons {
   background-color: $background-blue;
 }
+
+//==================Screen Responsiveness==================
+
+@media screen and (max-width: $screen-computer) {
+  @include destination-columns(1fr 1fr 1fr)
+}
+
+@media screen and (max-width: $screen-tablet) {
+  @include destination-columns(1fr 1fr)
+}
+
+@media screen and (max-width: $screen-phone) {
+  @include destination-columns(1fr)
+
+  .traveler-nav {
+    font-size: 2em;
+    padding-bottom: 1em;
+  }
+}
