@@ -39,6 +39,6 @@
     "jquery": "^3.4.1",
     "jquery-modal": "^0.9.2",
     "js-datepicker": "^5.4.0",
-    "moment": "^2.24.0"
+    "moment": "^2.29.4"
   }
 }
